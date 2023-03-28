@@ -4,31 +4,32 @@ class Ponto {
 
   static const CAMPO_ID = 'id';
   static const CAMPO_DESCRICAO = 'descricao';
-  static const CAMPO_PRAZO = 'prazo';
+  static const CAMPO_DIFERENCIAIS = 'diferenciais';
+  static const CAMPO_DATA = 'data';
   static const NOME_TABLE = 'tarefas';
 
   int id;
   String descricao;
-  DateTime? prazo;
+  String? diferenciais;
+  DateTime data;
 
-  Ponto({required this.id, required this.descricao, this.prazo});
+  Ponto({required this.id, required this.descricao, this.diferenciais, required this.data});
 
-  String get prazoFormatado {
-    if (prazo == null){
-      return "";
-    }
-    return DateFormat('dd/MM/yyyy').format(prazo!);
+  String get dataFormatada {
+    return DateFormat('dd/MM/yyyy').format(data!);
   }
 
   Map<String, dynamic> toMap() => <String, dynamic>{
     CAMPO_ID: id,
     CAMPO_DESCRICAO: descricao,
-    CAMPO_PRAZO: prazo == null ? null : DateFormat("dd/MM/yyyy").format(prazo!),
+    CAMPO_DIFERENCIAIS: diferenciais,
+    CAMPO_DATA: DateFormat("dd/MM/yyyy").format(data!),
   };
 
   factory Ponto.fromMap(Map<String, dynamic> map) => Ponto(
     id: map[CAMPO_ID] is int ? map[CAMPO_ID] : null,
     descricao: map[CAMPO_DESCRICAO] is String ?  map[CAMPO_DESCRICAO] : '',
-    prazo: map[CAMPO_PRAZO] == null ? null : DateFormat("dd/MM/yyyy").parse(map[CAMPO_PRAZO]),
+    diferenciais: map[CAMPO_DIFERENCIAIS] is String ?  map[CAMPO_DIFERENCIAIS] : '',
+    data: DateFormat("dd/MM/yyyy").parse(map[CAMPO_DATA]),
   );
 }

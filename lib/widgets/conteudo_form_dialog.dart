@@ -15,7 +15,7 @@ class ConteudoFormDialog extends StatefulWidget{
 class ConteudoFormDialogState extends State<ConteudoFormDialog>{
     final formKey = GlobalKey<FormState>();
     final descricaoController = TextEditingController();
-    final prazoController = TextEditingController();
+    final dataController = TextEditingController();
     final _dateFormat = DateFormat('dd/MM/yyy');
 
     @override
@@ -23,7 +23,7 @@ class ConteudoFormDialogState extends State<ConteudoFormDialog>{
       super.initState();
       if ( widget.pontoAtual != null){
         descricaoController.text = widget.pontoAtual!.descricao;
-        prazoController.text = widget.pontoAtual!.prazoFormatado;
+        dataController.text = widget.pontoAtual!.dataFormatada;
       }
     }
 
@@ -44,14 +44,14 @@ class ConteudoFormDialogState extends State<ConteudoFormDialog>{
                 },
               ),
               TextFormField(
-                controller: prazoController,
-                decoration: InputDecoration(labelText: 'Prazo',
+                controller: dataController,
+                decoration: InputDecoration(labelText: 'Data',
                 prefixIcon: IconButton(
                     onPressed: _mostraCalendario,
                     icon: Icon(Icons.calendar_today),
                 ),
                   suffixIcon: IconButton(
-                      onPressed: () => prazoController.clear(),
+                      onPressed: () => dataController.clear(),
                       icon: Icon(Icons.close),
                   ),
                 ),
@@ -62,7 +62,7 @@ class ConteudoFormDialogState extends State<ConteudoFormDialog>{
       );
     }
     void _mostraCalendario(){
-      final dataFormatada = prazoController.text;
+      final dataFormatada = dataController.text;
       var data = DateTime.now();
       if (dataFormatada.isNotEmpty){
         data = _dateFormat.parse(dataFormatada);
@@ -75,7 +75,7 @@ class ConteudoFormDialogState extends State<ConteudoFormDialog>{
       ).then((DateTime? dataSelecionada){
         if (dataSelecionada != null){
           setState(() {
-            prazoController.text = _dateFormat.format(dataSelecionada);
+            dataController.text = _dateFormat.format(dataSelecionada);
           });
         }
       });
@@ -86,6 +86,6 @@ class ConteudoFormDialogState extends State<ConteudoFormDialog>{
     Ponto get novoPonto => Ponto(
         id: widget.pontoAtual?.id ?? 0,
         descricao: descricaoController.text,
-      prazo: prazoController.text.isEmpty ? null : _dateFormat.parse(prazoController.text),
+        data: _dateFormat.parse(dataController.text),
     );
 }

@@ -17,7 +17,7 @@ class _FiltroPageState extends State<FiltroPage> {
   final _camposParaOrdenacao = {
     Ponto.CAMPO_ID: 'Código',
     Ponto.CAMPO_DESCRICAO: 'Descrição',
-    Ponto.CAMPO_PRAZO: 'Prazo'
+    Ponto.CAMPO_DATA: 'Data'
   };
   late final SharedPreferences _prefs;
   final _descricaoController = TextEditingController();
