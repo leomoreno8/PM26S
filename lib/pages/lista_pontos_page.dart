@@ -91,7 +91,7 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
         value: ACAO_EDITAR,
           child: Row(
             children: [
-              Icon(Icons.edit, color: Colors.black),
+              Icon(Icons.edit, color: Colors.blue),
               Padding(
                   padding: EdgeInsets.only(left: 10),
                 child: Text('Editar'),

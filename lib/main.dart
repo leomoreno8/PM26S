@@ -16,7 +16,7 @@ class CadastroApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Gerenciador de Pontos Turísticos',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.purple,
       ),
       home: ListaPontosPage(),
       routes: {

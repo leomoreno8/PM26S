@@ -6,7 +6,7 @@ class Ponto {
   static const CAMPO_DESCRICAO = 'descricao';
   static const CAMPO_DIFERENCIAIS = 'diferenciais';
   static const CAMPO_DATA = 'data';
-  static const NOME_TABLE = 'tarefas';
+  static const NOME_TABLE = 'pontos';
 
   int id;
   String descricao;
