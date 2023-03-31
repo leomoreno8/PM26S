@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:intl/intl.dart';
 
 class Ponto {
@@ -16,14 +18,14 @@ class Ponto {
   Ponto({required this.id, required this.descricao, this.diferenciais, required this.data});
 
   String get dataFormatada {
-    return DateFormat('dd/MM/yyyy').format(data!);
+    return DateFormat('dd/MM/yyyy').format(data);
   }
 
   Map<String, dynamic> toMap() => <String, dynamic>{
     CAMPO_ID: id,
     CAMPO_DESCRICAO: descricao,
     CAMPO_DIFERENCIAIS: diferenciais,
-    CAMPO_DATA: DateFormat("dd/MM/yyyy").format(data!),
+    CAMPO_DATA: DateFormat("dd/MM/yyyy").format(data),
   };
 
   factory Ponto.fromMap(Map<String, dynamic> map) => Ponto(

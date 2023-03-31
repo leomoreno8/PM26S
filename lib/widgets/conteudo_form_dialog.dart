@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: annotate_overrides
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../model/ponto.dart';
@@ -6,7 +7,7 @@ import '../model/ponto.dart';
 class ConteudoFormDialog extends StatefulWidget{
   final Ponto? pontoAtual;
 
-  ConteudoFormDialog({Key? key, this.pontoAtual}) : super(key: key);
+  const ConteudoFormDialog({Key? key, this.pontoAtual}) : super(key: key);
 
   @override
   ConteudoFormDialogState createState() => ConteudoFormDialogState();
@@ -39,7 +40,7 @@ class ConteudoFormDialogState extends State<ConteudoFormDialog>{
             children: [
               TextFormField(
                 controller: descricaoController,
-                decoration: InputDecoration(labelText: 'Descrição'),
+                decoration: const InputDecoration(labelText: 'Descrição'),
                 validator: (String? valor){
                   if(valor == null || valor.isEmpty){
                     return 'Informe a descrição';
@@ -49,7 +50,7 @@ class ConteudoFormDialogState extends State<ConteudoFormDialog>{
               ),
               TextFormField(
                 controller: diferenciaisController,
-                decoration: InputDecoration(labelText: 'Diferencais'),
+                decoration: const InputDecoration(labelText: 'Diferencais'),
                 validator: (String? valor){
                   if(valor == null || valor.isEmpty){
                     return 'Informe os diferenciais';

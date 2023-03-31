@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,6 +10,8 @@ class FiltroPage extends StatefulWidget {
   static const chaveCampoOrdenacao = 'campoOrdenacao';
   static const chaveUsarOrdemDecrescente = 'usarOrdemDecrescente';
   static const chaveFiltroDescricao = 'filtroDescricao';
+
+  const FiltroPage({super.key});
 
   @override
   _FiltroPageState createState() => _FiltroPageState();

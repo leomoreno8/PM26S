@@ -1,12 +1,13 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, library_private_types_in_public_api
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:turistico/pages/filtro_page.dart';
 import '../model/ponto.dart';
 import '../widgets/conteudo_form_dialog.dart';
 
 class ListaPontosPage extends StatefulWidget{
+  const ListaPontosPage({super.key});
+
 
   @override
   _ListaPontosPageState createState() => _ListaPontosPageState();
@@ -30,7 +31,7 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
       floatingActionButton: FloatingActionButton(
         onPressed: _abrirForm,
         tooltip: 'Novo Ponto',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -41,7 +42,7 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
       actions: [
         IconButton(
             onPressed: _abrirPaginaFiltro,
-            icon: Icon(Icons.filter_list)),
+            icon: const Icon(Icons.filter_list)),
       ],
     );
   }
@@ -73,7 +74,7 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
             },
           );
         },
-        separatorBuilder: (BuildContext context, int index) => Divider(),
+        separatorBuilder: (BuildContext context, int index) => const Divider(),
         itemCount: pontos.length,
     );
   }
@@ -127,7 +128,7 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
             actions: [
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('Cancelar'),
+                  child: const Text('Cancelar'),
               ),
               TextButton(
                 onPressed: () {
@@ -144,7 +145,7 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
                     Navigator.of(context).pop();
                   }
                 },
-                child: Text('Salvar'),
+                child: const Text('Salvar'),
               )
             ],
           );
@@ -170,7 +171,7 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
             actions: [
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('Cancelar')
+                  child: const Text('Cancelar')
               ),
               TextButton(
                   onPressed: () {
@@ -179,7 +180,7 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
                        pontos.removeAt(indice);
                      });
                      },
-                  child: Text('OK')
+                  child: const Text('OK')
               )
             ],
           );
