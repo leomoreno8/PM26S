@@ -95,7 +95,7 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
         value: ACAO_VISUALIZAR,
           child: Row(
             children: const [
-              Icon(Icons.edit, color: Colors.grey),
+              Icon(Icons.info, color: Colors.grey),
               Padding(
                   padding: EdgeInsets.only(left: 10),
                 child: Text('Visualizar'),
