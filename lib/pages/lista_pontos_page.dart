@@ -65,7 +65,7 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
             onSelected: (String valorSelecionado){
               if (valorSelecionado == ACAO_EDITAR){
                 _abrirForm(pontoAtual: ponto, indice: index);
-              }else{
+              } else {
                 _excluir(index);
               }
             },
@@ -120,8 +120,7 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
         context: context,
         builder: (BuildContext context){
           return AlertDialog(
-            title: Text(pontoAtual == null ? 'Novo Ponto Turístico' :
-            ' Alterar o ponto turístico ${pontoAtual.id}'),
+            title: Text(pontoAtual == null ? 'Novo Ponto Turístico' : ' Alterar o ponto turístico ${pontoAtual.id}'),
             content: ConteudoFormDialog(key: key, pontoAtual: pontoAtual),
             actions: [
               TextButton(
@@ -135,11 +134,10 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
                       final novoPonto = key.currentState!.novoPonto;
                       if (indice == null){
                         novoPonto.id = ++ _ultimoId;
-                      }else{
+                        pontos.add(novoPonto);
+                      } else {
                         pontos[indice] = novoPonto;
                       }
-                      pontos.add(novoPonto);
-
                     });
                     Navigator.of(context).pop();
                   }
