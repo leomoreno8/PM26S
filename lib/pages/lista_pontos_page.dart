@@ -69,8 +69,10 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
             onSelected: (String valorSelecionado){
               if (valorSelecionado == ACAO_EDITAR){
                 _abrirForm(pontoAtual: ponto, indice: index);
-              } else {
+              } else if (valorSelecionado == ACAO_EXCLUIR) {
                 _excluir(index);
+              } else {
+                _visualizar(pontoAtual: ponto, indice: index);
               }
             },
           );
@@ -131,6 +133,42 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
   }
 
   void _abrirForm({Ponto? pontoAtual, int? indice}){
+    final key = GlobalKey<ConteudoFormDialogState>();
+    showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: Text(pontoAtual == null ? 'Novo Ponto Turístico' : ' Alterar o ponto turístico ${pontoAtual.id}'),
+            content: ConteudoFormDialog(key: key, pontoAtual: pontoAtual),
+            actions: [
+              TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Cancelar'),
+              ),
+              TextButton(
+                onPressed: () {
+                  if (key.currentState != null && key.currentState!.dadosValidados()){
+                    setState(() {
+                      final novoPonto = key.currentState!.novoPonto;
+                      if (indice == null){
+                        novoPonto.id = ++ _ultimoId;
+                        pontos.add(novoPonto);
+                      } else {
+                        pontos[indice] = novoPonto;
+                      }
+                    });
+                    Navigator.of(context).pop();
+                  }
+                },
+                child: const Text('Salvar'),
+              )
+            ],
+          );
+        }
+    );
+  }
+
+    void _visualizar({Ponto? pontoAtual, int? indice}){
     final key = GlobalKey<ConteudoFormDialogState>();
     showDialog(
         context: context,
