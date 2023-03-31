@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:turistico/pages/filtro_page.dart';
@@ -35,7 +37,7 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
 
   AppBar _criarAppBar() {
     return AppBar(
-      title: Text('Gerenciador de Pontos Turísticos'),
+      title: const Text('Gerenciador de Pontos Turísticos'),
       actions: [
         IconButton(
             onPressed: _abrirPaginaFiltro,
@@ -90,7 +92,7 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
       PopupMenuItem<String>(
         value: ACAO_EDITAR,
           child: Row(
-            children: [
+            children: const [
               Icon(Icons.edit, color: Colors.blue),
               Padding(
                   padding: EdgeInsets.only(left: 10),
@@ -102,7 +104,7 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
       PopupMenuItem<String>(
           value: ACAO_EXCLUIR,
           child: Row(
-            children: [
+            children: const [
               Icon(Icons.delete, color: Colors.red),
               Padding(
                 padding: EdgeInsets.only(left: 10),
@@ -156,7 +158,7 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
         builder: (BuildContext context){
           return AlertDialog(
             title: Row(
-              children: [
+              children: const [
                 Icon(Icons.warning, color: Colors.red,),
                 Padding(
                     padding: EdgeInsets.only(left: 10),
@@ -164,7 +166,7 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
                 ),
               ],
             ),
-            content: Text('Esse registro será deletado definitivamente'),
+            content: const Text('Esse registro será deletado definitivamente'),
             actions: [
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),

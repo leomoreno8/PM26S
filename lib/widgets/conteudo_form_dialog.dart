@@ -61,25 +61,6 @@ class ConteudoFormDialogState extends State<ConteudoFormDialog>{
           )
       );
     }
-    void _mostraCalendario(){
-      final dataFormatada = dataController.text;
-      var data = DateTime.now();
-      if (dataFormatada.isNotEmpty){
-        data = _dateFormat.parse(dataFormatada);
-      }
-      showDatePicker(
-          context: context,
-          initialDate: data,
-          firstDate: data.subtract(Duration(days: 365 * 5)),
-          lastDate: data.add(Duration(days: 365 * 5)),
-      ).then((DateTime? dataSelecionada){
-        if (dataSelecionada != null){
-          setState(() {
-            dataController.text = _dateFormat.format(dataSelecionada);
-          });
-        }
-      });
-    }
 
     bool dadosValidados() => formKey.currentState!.validate() == true;
     

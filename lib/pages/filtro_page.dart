@@ -47,19 +47,19 @@ class _FiltroPageState extends State<FiltroPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
+      onWillPop: _onVoltarClick,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Filtro e Ordenação'),
+          title: const Text('Filtro e Ordenação'),
         ),
         body: _criarBody(),
       ),
-      onWillPop: _onVoltarClick,
     );
   }
 
   Widget _criarBody() => ListView(
     children: [
-      Padding(
+      const Padding(
         padding: EdgeInsets.only(left: 10, top: 10),
         child: Text('Campo para ordenação'),
       ),
@@ -74,21 +74,21 @@ class _FiltroPageState extends State<FiltroPage> {
             Text(_camposParaOrdenacao[campo]!),
           ],
         ),
-      Divider(),
+      const Divider(),
       Row(
         children: [
           Checkbox(
             value: _usarOrdemDecrescente,
             onChanged: _onUsarOrdemDecrescenteChanged,
           ),
-          Text('Usar ordem decrescente'),
+          const Text('Usar ordem decrescente'),
         ],
       ),
-      Divider(),
+      const Divider(),
       Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: TextField(
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Descrição começa com',
           ),
           controller: _descricaoController,
