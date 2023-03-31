@@ -15,6 +15,7 @@ class ListaPontosPage extends StatefulWidget{
 
 class _ListaPontosPageState extends State<ListaPontosPage>{
 
+  static const ACAO_VISUALIZAR = 'visualizar';
   static const ACAO_EDITAR = 'editar';
   static const ACAO_EXCLUIR = 'excluir';
 
@@ -90,6 +91,18 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
 
   List<PopupMenuEntry<String>> criarItensMenuPopup(){
     return[
+      PopupMenuItem<String>(
+        value: ACAO_VISUALIZAR,
+          child: Row(
+            children: const [
+              Icon(Icons.edit, color: Colors.grey),
+              Padding(
+                  padding: EdgeInsets.only(left: 10),
+                child: Text('Visualizar'),
+              )
+            ],
+          )
+      ),
       PopupMenuItem<String>(
         value: ACAO_EDITAR,
           child: Row(
