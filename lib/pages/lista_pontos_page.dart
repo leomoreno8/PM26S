@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:turistico/pages/filtro_page.dart';
 import '../model/ponto.dart';
 import '../widgets/conteudo_form_dialog.dart';
+import '../widgets/conteudo_form_dialog_view.dart';
 
 class ListaPontosPage extends StatefulWidget{
   const ListaPontosPage({super.key});
@@ -174,8 +175,8 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
         context: context,
         builder: (BuildContext context){
           return AlertDialog(
-            title: Text(pontoAtual == null ? 'Novo Ponto Turístico' : ' Alterar o ponto turístico ${pontoAtual.id}'),
-            content: ConteudoFormDialog(key: key, pontoAtual: pontoAtual),
+            title: Text(pontoAtual == null ? 'Novo Ponto Turístico' : ' Informações do PT - ${pontoAtual.id}'),
+            content: ConteudoFormDialogView(key: key, pontoAtual: pontoAtual),
             actions: [
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),
