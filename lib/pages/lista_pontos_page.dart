@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:turistico/pages/filtro_page.dart';
 import '../model/ponto.dart';
 import '../widgets/conteudo_form_dialog.dart';
+import '../widgets/conteudo_form_dialog_view.dart';
 
 class ListaPontosPage extends StatefulWidget{
   const ListaPontosPage({super.key});
@@ -15,6 +16,7 @@ class ListaPontosPage extends StatefulWidget{
 
 class _ListaPontosPageState extends State<ListaPontosPage>{
 
+  static const ACAO_VISUALIZAR = 'visualizar';
   static const ACAO_EDITAR = 'editar';
   static const ACAO_EXCLUIR = 'excluir';
 
@@ -68,8 +70,10 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
             onSelected: (String valorSelecionado){
               if (valorSelecionado == ACAO_EDITAR){
                 _abrirForm(pontoAtual: ponto, indice: index);
-              } else {
+              } else if (valorSelecionado == ACAO_EXCLUIR) {
                 _excluir(index);
+              } else {
+                _visualizar(pontoAtual: ponto, indice: index);
               }
             },
           );
@@ -90,6 +94,18 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
 
   List<PopupMenuEntry<String>> criarItensMenuPopup(){
     return[
+      PopupMenuItem<String>(
+        value: ACAO_VISUALIZAR,
+          child: Row(
+            children: const [
+              Icon(Icons.info, color: Colors.grey),
+              Padding(
+                  padding: EdgeInsets.only(left: 10),
+                child: Text('Visualizar'),
+              )
+            ],
+          )
+      ),
       PopupMenuItem<String>(
         value: ACAO_EDITAR,
           child: Row(
@@ -125,6 +141,42 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
           return AlertDialog(
             title: Text(pontoAtual == null ? 'Novo Ponto Turístico' : ' Alterar o ponto turístico ${pontoAtual.id}'),
             content: ConteudoFormDialog(key: key, pontoAtual: pontoAtual),
+            actions: [
+              TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Cancelar'),
+              ),
+              TextButton(
+                onPressed: () {
+                  if (key.currentState != null && key.currentState!.dadosValidados()){
+                    setState(() {
+                      final novoPonto = key.currentState!.novoPonto;
+                      if (indice == null){
+                        novoPonto.id = ++ _ultimoId;
+                        pontos.add(novoPonto);
+                      } else {
+                        pontos[indice] = novoPonto;
+                      }
+                    });
+                    Navigator.of(context).pop();
+                  }
+                },
+                child: const Text('Salvar'),
+              )
+            ],
+          );
+        }
+    );
+  }
+
+    void _visualizar({Ponto? pontoAtual, int? indice}){
+    final key = GlobalKey<ConteudoFormDialogState>();
+    showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: Text(pontoAtual == null ? 'Novo Ponto Turístico' : ' Informações do PT - ${pontoAtual.id}'),
+            content: ConteudoFormDialogView(key: key, pontoAtual: pontoAtual),
             actions: [
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),
