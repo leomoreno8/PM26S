@@ -15,6 +15,7 @@ class ConteudoFormDialog extends StatefulWidget{
 
 class ConteudoFormDialogState extends State<ConteudoFormDialog>{
     final formKey = GlobalKey<FormState>();
+    final nomeController = TextEditingController();
     final descricaoController = TextEditingController();
     final diferenciaisController = TextEditingController();
     final dataController = TextEditingController();
@@ -24,6 +25,7 @@ class ConteudoFormDialogState extends State<ConteudoFormDialog>{
     void initState(){
       super.initState();
       if ( widget.pontoAtual != null){
+        nomeController.text = widget.pontoAtual!.nome;
         descricaoController.text = widget.pontoAtual!.descricao;
         diferenciaisController.text = widget.pontoAtual!.diferenciais!;
         dataController.text = widget.pontoAtual!.dataFormatada;
@@ -38,6 +40,16 @@ class ConteudoFormDialogState extends State<ConteudoFormDialog>{
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              TextFormField(
+                controller: nomeController,
+                decoration: const InputDecoration(labelText: 'Descrição'),
+                validator: (String? valor){
+                  if(valor == null || valor.isEmpty){
+                    return 'Informe a descrição';
+                  }
+                  return null;
+                },
+              ),
               TextFormField(
                 controller: descricaoController,
                 decoration: const InputDecoration(labelText: 'Descrição'),
@@ -67,6 +79,7 @@ class ConteudoFormDialogState extends State<ConteudoFormDialog>{
     
     Ponto get novoPonto => Ponto(
         id: widget.pontoAtual?.id ?? 0,
+        nome: nomeController.text,
         descricao: descricaoController.text,
         diferenciais: diferenciaisController.text,
         data: _dateFormat.parse(dataController.text),
