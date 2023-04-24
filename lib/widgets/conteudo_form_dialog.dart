@@ -42,7 +42,7 @@ class ConteudoFormDialogState extends State<ConteudoFormDialog>{
             children: [
               TextFormField(
                 controller: nomeController,
-                decoration: const InputDecoration(labelText: 'Descrição'),
+                decoration: const InputDecoration(labelText: 'Nome'),
                 validator: (String? valor){
                   if(valor == null || valor.isEmpty){
                     return 'Informe a descrição';
