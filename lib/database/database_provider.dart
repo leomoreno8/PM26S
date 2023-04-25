@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:turistico/model/ponto.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseProvider {
-  static const _dbName = 'pontos_turisticos.db';
+  static const _dbName = 'cadastro_pontos_teste.db';
   static const _dbVersion = 2;
 
   DatabaseProvider._init();
@@ -20,19 +19,30 @@ class DatabaseProvider {
       dbPath,
       version: _dbVersion,
       onCreate: _onCreate,
+      // onUpgrade: _onUpgrade,
     );
   }
 
   Future<void> _onCreate(Database db, int version) async {
     await db.execute(''' 
-      CREATE TABLE ${Ponto.NOME_TABLE} (
-        ${Ponto.CAMPO_ID} INTEGER PRIMARY KEY AUTOINCREMENT,
-        ${Ponto.CAMPO_NOME} TEXT NOT NULL,
-        ${Ponto.CAMPO_DESCRICAO} TEXT NOT NULL,
-        ${Ponto.CAMPO_DIFERENCIAIS} TEXT NOT NULL,
-        ${Ponto.CAMPO_DATA} TEXT);
+      CREATE TABLE ${Ponto.nomeTabela} (
+        ${Ponto.campoId} INTEGER PRIMARY KEY AUTOINCREMENT,
+        ${Ponto.campoNome} TEXT NOT NULL,
+        ${Ponto.campoDescricao} TEXT NOT NULL,
+        ${Ponto.campoDiferenciais} TEXT NOT NULL,
+        ${Ponto.campoData} TEXT);
     ''');
   }
+
+  // Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+  //   switch(oldVersion){
+  //     case 1:
+  //       await db.execute('''
+  //       ALTER TABLE ${Ponto.nomeTabela}
+  //       ADD ${Ponto.campoFinalizada} INTEGER NOT NULL DEFAULT 0;
+  //       ''');
+  //   }
+  // }
 
   Future<void> close() async {
     if (_database != null) {

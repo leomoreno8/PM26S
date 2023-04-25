@@ -1,47 +1,51 @@
-// ignore_for_file: annotate_overrides
+// ignore_for_file: prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import '../model/ponto.dart';
 
-class ConteudoFormDialog extends StatefulWidget{
-  final Ponto? pontoAtual;
+class ConteudoDialogForm extends StatefulWidget {
+  final Ponto? ponto;
 
-  const ConteudoFormDialog({Key? key, this.pontoAtual}) : super(key: key);
+  ConteudoDialogForm({Key? key, this.ponto}) : super(key: key);
+
+  void init() {}
 
   @override
-  ConteudoFormDialogState createState() => ConteudoFormDialogState();
+  State<StatefulWidget> createState() => ConteudoDialogFormState();
 }
 
-class ConteudoFormDialogState extends State<ConteudoFormDialog>{
-    final formKey = GlobalKey<FormState>();
-    final nomeController = TextEditingController();
-    final descricaoController = TextEditingController();
-    final diferenciaisController = TextEditingController();
-    final dataController = TextEditingController();
-    final _dateFormat = DateFormat('dd/MM/yyy');
+class ConteudoDialogFormState extends State<ConteudoDialogForm> {
+  final _formKey = GlobalKey<FormState>();
+  final _nomeController = TextEditingController();
+  final _descricaoController = TextEditingController();
+  final _diferenciaisController = TextEditingController();
+  final _dataController = TextEditingController();
+  final _dateFormat = DateFormat('dd/MM/yyyy');
 
-    @override
-    void initState(){
-      super.initState();
-      if ( widget.pontoAtual != null){
-        nomeController.text = widget.pontoAtual!.nome;
-        descricaoController.text = widget.pontoAtual!.descricao;
-        diferenciaisController.text = widget.pontoAtual!.diferenciais!;
-        dataController.text = widget.pontoAtual!.dataFormatada;
-      }
+  @override
+  void initState() {
+    super.initState();
+    if (widget.ponto != null) {
+      _nomeController.text = widget.ponto!.nome;
+      _descricaoController.text = widget.ponto!.descricao;
+      _diferenciaisController.text = widget.ponto!.diferenciais;
+      _dataController.text = widget.ponto!.dataFormatada;
     }
+  }
 
-    Widget build(BuildContext context){
-      var data = DateTime.now();
-      dataController.text = _dateFormat.format(data);
+  @override
+  Widget build(BuildContext context) {
+    var data = DateTime.now();
+      _dataController.text = _dateFormat.format(data);
       return Form(
-        key: formKey,
+        key: _formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormField(
-                controller: nomeController,
+                controller: _nomeController,
                 decoration: const InputDecoration(labelText: 'Nome'),
                 validator: (String? valor){
                   if(valor == null || valor.isEmpty){
@@ -51,7 +55,7 @@ class ConteudoFormDialogState extends State<ConteudoFormDialog>{
                 },
               ),
               TextFormField(
-                controller: descricaoController,
+                controller: _descricaoController,
                 decoration: const InputDecoration(labelText: 'Descrição'),
                 validator: (String? valor){
                   if(valor == null || valor.isEmpty){
@@ -61,7 +65,7 @@ class ConteudoFormDialogState extends State<ConteudoFormDialog>{
                 },
               ),
               TextFormField(
-                controller: diferenciaisController,
+                controller: _diferenciaisController,
                 decoration: const InputDecoration(labelText: 'Diferencais'),
                 validator: (String? valor){
                   if(valor == null || valor.isEmpty){
@@ -73,15 +77,15 @@ class ConteudoFormDialogState extends State<ConteudoFormDialog>{
             ],
           )
       );
-    }
+  }
 
-    bool dadosValidados() => formKey.currentState!.validate() == true;
-    
-    Ponto get novoPonto => Ponto(
-        id: widget.pontoAtual?.id ?? 0,
-        nome: nomeController.text,
-        descricao: descricaoController.text,
-        diferenciais: diferenciaisController.text,
-        data: _dateFormat.parse(dataController.text),
-    );
+  bool dadosValidos() => _formKey.currentState?.validate() == true;
+
+  Ponto get novoPonto => Ponto(
+    id: widget.ponto?.id,
+    nome: _nomeController.text,
+    descricao: _descricaoController.text,
+    diferenciais: _diferenciaisController.text,
+    data: _dateFormat.parse(_dataController.text),
+  );
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api, sort_child_properties_last
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,23 +11,19 @@ class FiltroPage extends StatefulWidget {
   static const chaveUsarOrdemDecrescente = 'usarOrdemDecrescente';
   static const chaveFiltroDescricao = 'filtroDescricao';
 
-  const FiltroPage({super.key});
-
   @override
   _FiltroPageState createState() => _FiltroPageState();
 }
 
 class _FiltroPageState extends State<FiltroPage> {
   final _camposParaOrdenacao = {
-    Ponto.CAMPO_ID: 'Código',
-    Ponto.CAMPO_NOME: 'Nome',
-    Ponto.CAMPO_DESCRICAO: 'Descrição',
-    Ponto.CAMPO_DIFERENCIAIS: 'Diferencias',
-    Ponto.CAMPO_DATA: 'Data'
+    Ponto.campoId: 'Código',
+    Ponto.campoDescricao: 'Descrição',
+    Ponto.campoData: 'Data'
   };
   late final SharedPreferences _prefs;
   final _descricaoController = TextEditingController();
-  String _campoOrdenacao = Ponto.CAMPO_ID;
+  String _campoOrdenacao = Ponto.campoId;
   bool _usarOrdemDecrescente = false;
   bool _alterouValores = false;
 
@@ -41,7 +37,7 @@ class _FiltroPageState extends State<FiltroPage> {
     _prefs = await SharedPreferences.getInstance();
     setState(() {
       _campoOrdenacao =
-          _prefs.getString(FiltroPage.chaveCampoOrdenacao) ?? Ponto.CAMPO_ID;
+          _prefs.getString(FiltroPage.chaveCampoOrdenacao) ?? Ponto.campoId;
       _usarOrdemDecrescente =
           _prefs.getBool(FiltroPage.chaveUsarOrdemDecrescente) == true;
       _descricaoController.text =
@@ -52,13 +48,13 @@ class _FiltroPageState extends State<FiltroPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onVoltarClick,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Filtro e Ordenação'),
         ),
         body: _criarBody(),
       ),
+      onWillPop: _onVoltarClick,
     );
   }
 

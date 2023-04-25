@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.turistico">
+    package="br.edu.utfpr.gerenciador_tarefas_utfpr">
    <application
-        android:label="turistico"
+        android:label="gerenciador_tarefas_utfpr"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

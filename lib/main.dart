@@ -14,13 +14,14 @@ class CadastroApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Gerenciador de Pontos Turísticos',
+      title: 'Gerenciador de Tarefas',
       theme: ThemeData(
+        primaryColor: Colors.amber,
         primarySwatch: Colors.purple,
       ),
-      home: const ListaPontosPage(),
+      home: ListaPontosPage(),
       routes: {
-        FiltroPage.routeName: (BuildContext context) => const FiltroPage(),
+        FiltroPage.routeName: (BuildContext context) => FiltroPage(),
       },
     );
   }
