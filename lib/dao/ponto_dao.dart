@@ -48,7 +48,7 @@ class PontoDao{
     }
     final database = await dbProvider.database;
     final resultado = await database.query(Ponto.nomeTabela,
-      columns: [Ponto.campoId, Ponto.campoNome, Ponto.campoDescricao, Ponto.campoDiferenciais, Ponto.campoData],
+      columns: [Ponto.campoId, Ponto.campoNome, Ponto.campoDescricao, Ponto.campoDiferenciais, Ponto.campoData, Ponto.campoLongitude, Ponto.campoLatitude],
     where: where,
       orderBy: orderBy,
     );

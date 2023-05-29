@@ -2,7 +2,7 @@ import 'package:turistico/model/ponto.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseProvider {
-  static const _dbName = 'cadastro_pontos_teste.db';
+  static const _dbName = 'cadastro_pontos_teste_3.db';
   static const _dbVersion = 2;
 
   DatabaseProvider._init();
@@ -30,7 +30,9 @@ class DatabaseProvider {
         ${Ponto.campoNome} TEXT NOT NULL,
         ${Ponto.campoDescricao} TEXT NOT NULL,
         ${Ponto.campoDiferenciais} TEXT NOT NULL,
-        ${Ponto.campoData} TEXT);
+        ${Ponto.campoData} TEXT,
+        ${Ponto.campoLongitude} TEXT,
+        ${Ponto.campoLatitude} TEXT);
     ''');
   }
 
