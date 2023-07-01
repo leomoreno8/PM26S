@@ -1,5 +1,9 @@
 // ignore_for_file: constant_identifier_names, use_key_in_widget_constructors, library_private_types_in_public_api, curly_braces_in_flow_control_structures
+import 'dart:io';
+import 'dart:math';
+import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
+import 'package:turistico/pages/distancia_page.dart';
 import 'package:turistico/pages/filtro_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../dao/ponto_dao.dart';
@@ -24,6 +28,7 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
   static const ACAO_MAPA_EXTERNO = 'mapa1';
   static const ACAO_MAPA_INTERNO = 'mapa2';
   static const ACAO_VISUALIZAR = 'visualizar';
+  static const ACAO_CALCULAR_DISTANCIA = 'calcular';
   
   final _linhas = <String>[];
   final _pontos = <Ponto>[];
@@ -138,6 +143,8 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
                 _abrirMapaExterno(ponto.longitude, ponto.latitude);
               } else if (valorSelecionado == ACAO_MAPA_INTERNO) {
                 _abrirMapaInterno(ponto.longitude, ponto.latitude);
+              } else if (valorSelecionado == ACAO_CALCULAR_DISTANCIA) {
+                _abrirCalcularDistancia(ponto.longitude, ponto.latitude);
               }
               else{
                 _excluir(ponto);
@@ -218,6 +225,18 @@ class _ListaPontosPageState extends State<ListaPontosPage>{
               Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: Text('Mapa interno'),
+              )
+            ],
+          )
+      ),
+      PopupMenuItem<String>(
+          value: ACAO_CALCULAR_DISTANCIA,
+          child: Row(
+            children: const [
+              Icon(Icons.social_distance, color: Colors.blue),
+              Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Text('Calcular Distância'),
               )
             ],
           )
@@ -474,8 +493,41 @@ void _monitorar(){
             latitude: latitude,
             longetude: longitude,
         ),
-    ),
+      ),
     );
+  }
+
+  Future<void> _abrirCalcularDistancia(long, lat) async {
+    stderr.writeln('print me');
+
+    Position position = await Geolocator.getCurrentPosition();
+    var longitudeAtual = position.longitude;
+    var latitudeAtual = position.latitude;
+    var longitude = double.parse(long);
+    var latitude = double.parse(lat);
+
+    const double earthRadius = 6371; // Raio médio da Terra em quilômetros
+
+    // Converter as coordenadas de latitude/longitude para radianos
+    double dLat = _degreesToRadians(latitude - latitudeAtual);
+    double dLon = _degreesToRadians(longitude - longitudeAtual);
+
+    double a = pow(sin(dLat / 2), 2) +
+        cos(_degreesToRadians(latitude)) *
+            cos(_degreesToRadians(latitudeAtual)) *
+            pow(sin(dLon / 2), 2);
+    double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+    // Calcular a distância em quilômetros
+    double distance = earthRadius * c;
+
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (_) => DistanciaPage(distance: distance),
+    ));
+  }
+
+  double _degreesToRadians(double degrees) {
+    return degrees * pi / 180;
   }
 
 }
