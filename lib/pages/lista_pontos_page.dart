@@ -460,15 +460,14 @@ void _monitorar(){
   }
 
   void _abrirMapaExterno(long, lat){
-
-    MapsLauncher.launchCoordinates(lat, long);
+    var longitude = double.parse(long);
+    var latitude = double.parse(lat);
+    MapsLauncher.launchCoordinates(latitude, longitude);
   }
 
   void _abrirMapaInterno(long, lat){
     var longitude = double.parse(long);
     var latitude = double.parse(lat);
-    print(longitude);
-    print(latitude);
 
     Navigator.push(context, MaterialPageRoute(
         builder: (BuildContext context) => MapasPage(
