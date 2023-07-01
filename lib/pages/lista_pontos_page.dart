@@ -1,7 +1,6 @@
 // ignore_for_file: constant_identifier_names, use_key_in_widget_constructors, library_private_types_in_public_api, curly_braces_in_flow_control_structures
 import 'dart:io';
 import 'dart:math';
-import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
 import 'package:turistico/pages/distancia_page.dart';
 import 'package:turistico/pages/filtro_page.dart';
